@@ -1,1 +1,314 @@
-# Practice-10
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Shoaib Khan 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#020d05;color:#e8fff2;min-height:100vh;overflow-x:hidden}
+canvas#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
+#wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:20px 14px 60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.page{display:none;flex-direction:column;gap:18px;animation:fadeIn .6s ease forwards}
+.page.active{display:flex}
+@keyframes fadeIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.card{background:rgba(0,20,10,.82);border:1px solid rgba(0,255,136,.22);border-radius:20px;padding:28px 22px;backdrop-filter:blur(14px);box-shadow:0 0 30px rgba(0,255,136,.1),0 4px 20px rgba(0,0,0,.5)}
+.center{text-align:center}
+h1{font-family:'Pacifico',cursive;font-size:clamp(22px,6vw,34px);text-align:center;background:linear-gradient(135deg,#00ff88,#b9ffd6,#00e676);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0}
+.sub{color:#b9ffd6;font-size:15px;line-height:1.9;text-align:center}
+.hitext{font-family:'Pacifico',cursive;font-size:clamp(28px,8vw,44px);color:#00ff88;text-shadow:0 0 20px #39ff14,0 0 40px #00c853;text-align:center;animation:glowpulse 2s ease-in-out infinite alternate}
+@keyframes glowpulse{from{text-shadow:0 0 12px #39ff14}to{text-shadow:0 0 32px #39ff14,0 0 60px #00c853}}
+.wave{display:inline-block;animation:waveHand .8s ease-in-out infinite alternate}
+@keyframes waveHand{from{transform:rotate(-10deg)}to{transform:rotate(20deg)}}
+.big-emoji{font-size:56px;text-align:center;display:block;margin-bottom:8px;animation:popIn .5s ease}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* NEW HEART STYLE - floating pulse rings */
+.heart-wrap{display:flex;justify-content:center;align-items:center;height:90px;margin:10px 0;position:relative}
+.heart-main{font-size:52px;position:relative;z-index:2;animation:heartbeat .7s ease-in-out infinite alternate}
+@keyframes heartbeat{from{transform:scale(1)}to{transform:scale(1.22)}}
+.heart-ring{position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid #00ff88;opacity:0;animation:heartring 1.8s ease-out infinite}
+.heart-ring:nth-child(2){animation-delay:.6s}
+.heart-ring:nth-child(3){animation-delay:1.2s}
+@keyframes heartring{0%{transform:scale(.8);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+
+.hearts{text-align:center;font-size:26px;letter-spacing:4px;animation:vibe .14s linear infinite;filter:drop-shadow(0 0 6px #00ff88);margin:8px 0}
+.celebrate{text-align:center;font-size:30px;letter-spacing:2px;margin:6px 0}
+.sign{font-family:'Pacifico',cursive;font-size:20px;text-align:center;color:#00ff88;text-shadow:0 0 12px #39ff14;margin-top:18px}
+.quote-box{border-left:3px solid #00ff88;padding:14px 18px;margin:16px 0;background:rgba(0,255,136,.06);text-align:left}
+.quote-box .quote-text{font-size:15px;line-height:1.85;color:#e8fff2;font-style:italic}
+.quote-box .quote-text span{color:#00ff88;font-style:normal;font-weight:700;text-shadow:0 0 8px #39ff14}
+.quote-mark{font-family:'Pacifico',cursive;font-size:36px;color:#00ff88;opacity:.4;line-height:1;display:block;margin-bottom:-8px}
+
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-14px)}}
+@keyframes vibe{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}75%{transform:translate(2px,-1px)}}
+
+.next-btn{display:block;margin:0 auto;background:linear-gradient(135deg,#00c853,#00ff88);border:none;border-radius:50px;color:#002b10;font-family:'Pacifico',cursive;font-size:16px;padding:15px 38px;cursor:pointer;box-shadow:0 0 24px #39ff14,0 4px 16px rgba(0,0,0,.4);transition:transform .15s,box-shadow .2s;animation:vibe .15s linear infinite}
+.next-btn:hover{transform:scale(1.07);box-shadow:0 0 44px #39ff14}
+.celebbtn{display:block;margin:0 auto;background:linear-gradient(135deg,#00c853,#00ff88);border:none;border-radius:50px;color:#002b10;font-family:'Pacifico',cursive;font-size:16px;padding:14px 34px;cursor:pointer;box-shadow:0 0 22px #39ff14;animation:vibe .16s linear infinite}
+.celebbtn:hover{transform:scale(1.07)}
+
+.dots{display:flex;justify-content:center;gap:8px;margin-top:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(0,255,136,.3);transition:.3s}
+.dot.on{background:#00ff88;box-shadow:0 0 8px #00ff88;transform:scale(1.3)}
+
+.particle{position:fixed;border-radius:50%;background:#00ff88;pointer-events:none;z-index:0;animation:floatUp linear infinite}
+@keyframes floatUp{0%{opacity:.5;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-110vh) scale(0)}}
+.ring{position:fixed;border-radius:50%;border:1.5px solid #00e676;opacity:0;animation:ringp 4s ease-out infinite;pointer-events:none;z-index:0}
+@keyframes ringp{0%{transform:translate(-50%,-50%) scale(0);opacity:.6}100%{transform:translate(-50%,-50%) scale(4);opacity:0}}
+
+/* BALLOONS instead of confetti */
+.balloon{position:fixed;bottom:-80px;font-size:36px;pointer-events:none;z-index:9999;animation:balloonUp linear forwards}
+@keyframes balloonUp{0%{transform:translateY(0) rotate(-8deg);opacity:1}50%{transform:translateY(-50vh) rotate(8deg);opacity:1}100%{transform:translateY(-110vh) rotate(-5deg);opacity:0}}
+
+/* MUSIC TOGGLE */
+#music-btn{position:fixed;top:14px;right:14px;z-index:100;background:rgba(0,20,10,.85);border:1.5px solid rgba(0,255,136,.4);border-radius:50px;color:#00ff88;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 0 14px rgba(0,255,136,.2)}
+#music-btn:hover{background:rgba(0,255,136,.15)}
+</style>
+</head>
+<body>
+<canvas id="bgc"></canvas>
+
+<!-- MUSIC TOGGLE BUTTON -->
+<button id="music-btn" onclick="toggleMusic()">🎵 Music: OFF</button>
+
+<!-- BACKGROUND MUSIC using Web Audio API (birthday tune) -->
+<audio id="bgmusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"/>
+</audio>
+
+<div id="wrap">
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="p1">
+    <div class="card center">
+      <div style="font-size:48px;margin-bottom:6px"><span class="wave">👋</span></div>
+      <div class="hitext">Hiiii Shoaib!</div>
+      <div style="height:14px"></div>
+      <div class="quote-box">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">
+          Today's birthday wish is dedicated to every moment we <span>cherished together</span> —
+          the laughs, the memories, the little things that made us close. Those moments live in my heart forever. 💚
+        </p>
+      </div>
+      <p class="sub" style="margin-top:12px">
+        A celebration of the beautiful moments that time can never erase. 💚 🌿✨
+      </p>
+      <div class="hearts" style="margin-top:12px">💚💚💚💚💚</div>
+    </div>
+    <button class="next-btn" onclick="goTo(2)">Keeping the memories, Moving with a vibe 🌿</button>
+    <div class="dots" id="dots1"></div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="p2">
+    <div class="card center">
+      <div class="heart-wrap">
+        <div class="heart-ring"></div>
+        <div class="heart-ring"></div>
+        <div class="heart-ring"></div>
+        <span class="heart-main">💚</span>
+      </div>
+      <h1>Important Note!</h1>
+      <p class="sub" style="margin-top:10px">
+        Some people become important slowly… and then suddenly you realize you can't imagine your days without them.<br><br>
+        Tum mere liye bilkul waisy hi ho 💚<br><br>
+        You are more than a Friend, More than Love,<br>
+        A flower in my Garden and I want to see you<br>
+        <strong style="color:#00ff88">ever-Green 💚✨</strong>
+      </p>
+      <div class="hearts" style="margin-top:12px">💚💚💚💚💚</div>
+    </div>
+    <button class="next-btn" onclick="goTo(3)">Click to Read my 💚</button>
+    <div class="dots" id="dots2"></div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page" id="p3">
+    <div class="card center">
+      <span class="big-emoji">🤲</span>
+      <h1>Dil Se Dua</h1>
+      <p class="sub" style="margin-top:10px">
+        May Allah make things easy for you 🤍<br><br>
+        May He remove your worries and replace them with calm and strength 💚<br><br>
+        Just remember, I am always here for you —<br>
+        today, tomorrow, and always ✨<br><br>
+        <em style="color:#00ff88">(Gussa na karna ab mjhpe dobara 🥺)</em>
+      </p>
+    </div>
+    <div class="card center">
+      <p class="sub">
+        May Allah always keep you close to His mercy<br>
+        and protect your heart from every pain. 💚✨
+      </p>
+    </div>
+    <button class="next-btn" onclick="goTo(4)">Click to see Special Part 🎂</button>
+    <div class="dots" id="dots3"></div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="page" id="p4">
+    <div class="card center">
+      <span class="big-emoji">👑</span>
+      <h1>Happy Birthday<br>!!..Payary Larky..!!</h1>
+      <div class="hearts">💚💚💚💚💚</div>
+      <div class="celebrate">🎉🎊🥳🎈🎁✨</div>
+      <p class="sub" style="margin-top:10px">
+        Stay Blessed and May you have more energy<br>
+        to handle my mood swings 😂😂<br><br>
+        <strong style="color:#00ff88">Your Favourite Headache,,,,, Forever 😎</strong>
+      </p>
+      <div class="hearts" style="margin-top:10px">💚💚💚💚💚💚💚</div>
+      <div class="sign" style="margin-top:14px">💚💚 Your Chirri 💚💚</div>
+    </div>
+    <button class="celebbtn" onclick="launchBalloons()">🎈 Balloons Udaao!</button>
+    <div class="dots" id="dots4"></div>
+  </div>
+
+</div>
+
+<script>
+/* ── CANVAS BG ── */
+const cv=document.getElementById('bgc'),cx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight}
+rsz();window.addEventListener('resize',rsz);
+let t=0;
+(function frame(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  const g=cx.createRadialGradient(cv.width/2,cv.height/2,0,cv.width/2,cv.height/2,Math.max(cv.width,cv.height));
+  g.addColorStop(0,'#0a3b1a');g.addColorStop(.6,'#041a0a');g.addColorStop(1,'#020d05');
+  cx.fillStyle=g;cx.fillRect(0,0,cv.width,cv.height);
+  const sp=34;
+  for(let x=0;x<cv.width+sp;x+=sp)for(let y=0;y<cv.height+sp;y+=sp){
+    const w=Math.sin((x+y)*.04+t)*.5+.5;
+    cx.beginPath();cx.arc(x,y,w*3+.8,0,Math.PI*2);
+    cx.fillStyle=`rgba(0,255,136,${w*.2+.03})`;cx.fill();
+  }
+  for(let i=0;i<5;i++){
+    const yb=(cv.height/5)*i;cx.beginPath();cx.moveTo(0,yb);
+    for(let x=0;x<=cv.width;x+=4)cx.lineTo(x,yb+Math.sin(x*.009+t+i)*38);
+    cx.strokeStyle=`rgba(0,255,136,${.04+i*.012})`;cx.lineWidth=1.2;cx.stroke();
+  }
+  t+=.022;requestAnimationFrame(frame);
+})();
+
+/* ── PARTICLES ── */
+for(let i=0;i<28;i++){
+  const p=document.createElement('div');p.className='particle';
+  const s=Math.random()*5+2;
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}vw;bottom:${Math.random()*20}vh;animation-duration:${Math.random()*10+6}s;animation-delay:${Math.random()*8}s`;
+  document.body.appendChild(p);
+}
+
+/* ── RINGS ── */
+for(let i=0;i<4;i++){
+  const r=document.createElement('div');r.className='ring';
+  r.style.cssText=`width:${300+i*80}px;height:${300+i*80}px;left:50%;top:50%;animation-delay:${i}s`;
+  document.body.appendChild(r);
+}
+
+/* ── PAGE NAV ── */
+const TOTAL=4;let cur=1;
+function renderDots(){
+  for(let pi=1;pi<=TOTAL;pi++){
+    const el=document.getElementById('dots'+pi);
+    if(!el)continue;
+    el.innerHTML='';
+    for(let i=1;i<=TOTAL;i++){
+      const d=document.createElement('div');
+      d.className='dot'+(i===cur?' on':'');
+      el.appendChild(d);
+    }
+  }
+}
+function goTo(n){
+  document.getElementById('p'+cur).classList.remove('active');
+  cur=n;
+  const next=document.getElementById('p'+cur);
+  next.classList.add('active');
+  next.style.animation='none';
+  next.offsetHeight;
+  next.style.animation='';
+  renderDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===4)setTimeout(launchBalloons,500);
+}
+renderDots();
+
+/* ── BALLOONS (replace confetti) ── */
+const balloons=['🎈','🎈','🎈','💚','🎀','🎊','🥳'];
+function launchBalloons(){
+  for(let i=0;i<30;i++){
+    setTimeout(()=>{
+      const b=document.createElement('div');
+      b.className='balloon';
+      b.textContent=balloons[Math.floor(Math.random()*balloons.length)];
+      const dur=Math.random()*3+3;
+      const drift=(Math.random()-0.5)*200;
+      b.style.cssText=`left:${Math.random()*90}vw;animation-duration:${dur}s;font-size:${Math.random()*20+28}px;filter:drop-shadow(0 0 6px #00ff88)`;
+      b.animate([
+        {transform:'translateY(0) translateX(0) rotate(-8deg)',opacity:1},
+        {transform:`translateY(-110vh) translateX(${drift}px) rotate(8deg)`,opacity:0}
+      ],{duration:dur*1000,easing:'ease-in',fill:'forwards'});
+      document.body.appendChild(b);
+      setTimeout(()=>b.remove(),(dur+0.2)*1000);
+    },i*120);
+  }
+}
+
+/* ── MUSIC ── */
+const audio=document.getElementById('bgmusic');
+let playing=false;
+
+/* Generate birthday tune via Web Audio API */
+let audioCtx=null;
+function playBirthdayTune(){
+  if(audioCtx)return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  const notes=[
+    [261.63,0],[261.63,.375],[293.66,.75],[261.63,1.5],[349.23,2.25],[329.63,3],
+    [261.63,4],[261.63,4.375],[293.66,4.75],[261.63,5.5],[392.00,6.25],[349.23,7],
+    [261.63,8],[261.63,8.375],[523.25,8.75],[440.00,9.5],[349.23,10.25],[329.63,11],[293.66,11.75],
+    [466.16,12],[466.16,12.375],[440.00,12.75],[349.23,13.5],[392.00,14.25],[349.23,15]
+  ];
+  const durs=[.375,.375,.75,.75,.75,1.5,.375,.375,.75,.75,.75,1.5,.375,.375,.75,.75,.75,.75,1,.375,.375,.75,.75,.75,2];
+  notes.forEach(([freq,start],idx)=>{
+    const osc=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    osc.type='sine';
+    osc.frequency.value=freq;
+    const s=audioCtx.currentTime+start;
+    const d=durs[idx]||0.375;
+    gain.gain.setValueAtTime(0,s);
+    gain.gain.linearRampToValueAtTime(0.18,s+0.02);
+    gain.gain.setValueAtTime(0.18,s+d-0.05);
+    gain.gain.linearRampToValueAtTime(0,s+d);
+    osc.start(s);osc.stop(s+d+0.05);
+  });
+
+  /* Loop the tune */
+  const totalDur=17;
+  function loopTune(){
+    audioCtx=null;
+    if(playing)playBirthdayTune();
+  }
+  setTimeout(loopTune,totalDur*1000);
+}
+
+function toggleMusic(){
+  const btn=document.getElementById('music-btn');
+  playing=!playing;
+  if(playing){
+    btn.textContent='🎵 Music: ON';
+    playBirthdayTune();
+  }else{
+    btn.textContent='🎵 Music: OFF';
+    if(audioCtx){audioCtx.close();audioCtx=null;}
+  }
+}
+</script>
+</body>
+</html>
