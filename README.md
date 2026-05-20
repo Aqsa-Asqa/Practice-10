@@ -152,7 +152,7 @@ h1{font-family:'Pacifico',cursive;font-size:clamp(22px,6vw,34px);text-align:cent
   <!-- PAGE 4 -->
   <div class="page" id="p4">
     <div class="card center">
-      <span class="big-emoji">👑</span>
+      <span class="big-emoji">🎂</span>
       <h1>Happy Birthday<br>!!..Payary Larky..!!</h1>
       <div class="hearts">💚💚💚💚💚</div>
       <div class="celebrate">🎉🎊🥳🎈🎁✨</div>
