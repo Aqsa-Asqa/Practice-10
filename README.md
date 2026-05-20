@@ -115,9 +115,10 @@ h1{font-family:'Pacifico',cursive;font-size:clamp(22px,6vw,34px);text-align:cent
       <p class="sub" style="margin-top:10px">
         Some people become important slowly… and then suddenly you realize you can't imagine your days without them.<br><br>
         Tum mere liye bilkul waisy hi ho 💚<br><br>
+        <strong style="color:#00ff88">
         You are more than a Friend, More than Love,<br>
         A flower in my Garden and I want to see you<br>
-        <strong style="color:#00ff88">ever-Green 💚✨</strong>
+        ever-Green 💚✨</strong>
       </p>
       <div class="hearts" style="margin-top:12px">💚💚💚💚💚</div>
     </div>
@@ -135,13 +136,13 @@ h1{font-family:'Pacifico',cursive;font-size:clamp(22px,6vw,34px);text-align:cent
         May He remove your worries and replace them with calm and strength 💚<br><br>
         Just remember, I am always here for you —<br>
         today, tomorrow, and always ✨<br><br>
-        <em style="color:#00ff88">(Gussa na karna ab mjhpe dobara 🥺)</em>
+        (Gussa na karna ab mjhpe dobara 🥺)
       </p>
     </div>
     <div class="card center">
       <p class="sub">
-        May Allah always keep you close to His mercy<br>
-        and protect your heart from every pain. 💚✨
+        <em style="color:#00ff88">May Allah always keep you close to His mercy<br>
+        and protect your heart from every pain. 💚✨</em>
       </p>
     </div>
     <button class="next-btn" onclick="goTo(4)">Click to see Special Part 🎂</button>
